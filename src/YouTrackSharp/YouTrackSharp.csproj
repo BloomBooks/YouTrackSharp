@@ -3,14 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4E8C522A-20D3-474F-87B7-C5FBA96DFFF3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YouTrackSharp</RootNamespace>
     <AssemblyName>YouTrackSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,10 +35,6 @@
     <Reference Include="EasyHttp">
       <HintPath>..\packages\EasyHttp.1.6.68.0\lib\net40\EasyHttp.dll</HintPath>
     </Reference>
-    <Reference Include="JsonFx, Version=2.0.1209.2802, Culture=neutral, PublicKeyToken=315052dd637f8a52, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\JsonFx.2.0.1209.2802\lib\net40\JsonFx.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -52,18 +46,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="JsonFx">
+      <HintPath>..\packages\JsonFx.2.0.1209.2802\lib\net40\JsonFx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AllUsersItem.cs" />
     <Compile Include="Admin\Filter.cs" />
-    <Compile Include="Cmdlets\SetCommandCmdlet.cs" />
-    <Compile Include="Cmdlets\NewIssueCmdlet.cs" />
-    <Compile Include="Cmdlets\GetIssueCmdlet.cs" />
-    <Compile Include="Cmdlets\YouTrackCmdlet.cs" />
-    <Compile Include="Cmdlets\YouTrackIssueCmdlet.cs" />
-    <Compile Include="Cmdlets\YouTrackPSSnapIn.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandException.cs" />
     <Compile Include="Commands\CommandOptions\ApplyCommandCommandOptions.cs" />

@@ -46,26 +46,14 @@ namespace YouTrackSharp.Infrastructure
 {
     public class Connection : IConnection
     {
-        readonly string _host;
-        readonly int _port;
         readonly IUriConstructor _uriConstructor;
         CookieCollection _authenticationCookie;
         string _username;
 
         public Connection(string host, int port = 80, bool useSSL = false, string path = null)
         {
-            var protocol = "http";
-
-            _host = host;
-            _port = port;
-
-
-            if (useSSL)
-            {
-                protocol = "https";
-            }
-
-            _uriConstructor = new DefaultUriConstructor(protocol, _host, _port, path);
+            var protocol = useSSL ? "https" : "http";
+            _uriConstructor = new DefaultUriConstructor(protocol, host, port, path);
         }
 
         public HttpStatusCode HttpStatusCode { get; private set; }
@@ -252,18 +240,24 @@ namespace YouTrackSharp.Infrastructure
             }
         }
 
-        string GetFileContentType(string filename)
+	    static string GetFileContentType(string filename)
         {
-            var mime = "application/octetstream";
-            var extension = Path.GetExtension(filename);
-            if (extension != null)
-            {
-                var ext = extension.ToLower();
-                var rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
-                if (rk != null && rk.GetValue("Content Type") != null)
-                    mime = rk.GetValue("Content Type").ToString();
-            }
-            return mime;
+			var extension = Path.GetExtension(filename);
+			if (extension != null)
+			{
+				if (extension.ToLower() == ".log")
+				{
+					return "text/plain";
+				}
+			}
+			try
+			{
+				return System.Web.MimeMapping.GetMimeMapping(filename);
+			}
+			catch
+			{
+				return "application/octetstream";
+			}
         }
 
         HttpClient MakePostRequest(string command, object data, string accept)
